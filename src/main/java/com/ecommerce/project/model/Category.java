@@ -1,5 +1,8 @@
 package com.ecommerce.project.model;
 
+import org.springframework.stereotype.Service;
+
+
 public class Category {
 
     public Long getCategoryId() {
