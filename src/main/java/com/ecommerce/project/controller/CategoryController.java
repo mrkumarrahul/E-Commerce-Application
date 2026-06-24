@@ -11,6 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 public class CategoryController {
 
@@ -22,21 +24,22 @@ public class CategoryController {
     private CategoryServiceImpl categoryService;
 
     @GetMapping("api/public/categories")
-    public List<Category> getAllcategories(){
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<Category>> getAllcategories(){
+        List<Category> categories= categoryService.getAllCategories();
+        return new ResponseEntity<>(categories,HttpStatus.OK);
     }
 
     @PostMapping("/api/public/categories")
-    public String createcategory(@RequestBody Category category){
-        categoryService.createCategory(category);
-        return "category Added successfully";
+    public ResponseEntity<String> createcategory(@RequestBody Category category){
+       categoryService.createCategory(category);
+        return new ResponseEntity<>("Category added successfully",HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/admin/categories/{categoryId}")
     public ResponseEntity<String> deleteCategory(@PathVariable long categoryId){
         try{
             String status=categoryService.deleteCategory(categoryId);
-            return new ResponseEntity<>(status, HttpStatus.OK);
+            return ResponseEntity.ok(status);
         } catch(ResponseStatusException e){
             return new ResponseEntity<>(e.getReason(),e.getStatusCode());
         }
