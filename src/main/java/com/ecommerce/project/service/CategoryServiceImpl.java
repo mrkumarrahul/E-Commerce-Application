@@ -1,6 +1,7 @@
 package com.ecommerce.project.service;
 
 import com.ecommerce.project.model.Category;
+import com.ecommerce.project.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,7 +13,13 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    private CategoryRepository categoryRepository;
+
     private List<Category> categories=new ArrayList<>();
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository){
+        this.categoryRepository=categoryRepository;
+    }
 
     private long nextId=1L;
 
@@ -23,8 +30,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void createCategory(Category category){
-        category.setCategoryId(nextId++);
-        categories.add(category);
+//        category.setCategoryId(nextId++);
+        categoryRepository.save(category);
     }
 
     @Override
