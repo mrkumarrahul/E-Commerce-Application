@@ -3,6 +3,7 @@ package com.ecommerce.project.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.processing.Generated;
@@ -40,6 +41,7 @@ public class Category {
 
     }
 
+    @NotBlank
     private String categoryName;
 
 }
