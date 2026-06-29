@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.processing.Generated;
@@ -41,6 +42,7 @@ public class Category {
 
     }
 
+    @Size(min = 5,message = "Category must contain be at least 5 character")
     @NotBlank
     private String categoryName;
 
