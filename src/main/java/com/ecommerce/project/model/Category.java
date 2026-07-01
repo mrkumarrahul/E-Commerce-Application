@@ -5,9 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.processing.Generated;
 
 @Entity(name = "category")
 public class Category {
