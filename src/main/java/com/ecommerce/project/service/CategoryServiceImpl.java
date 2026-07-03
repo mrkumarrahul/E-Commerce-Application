@@ -6,7 +6,6 @@ import com.ecommerce.project.model.Category;
 import com.ecommerce.project.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,13 +13,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     private CategoryRepository categoryRepository;
 
-    private List<Category> categories=new ArrayList<>();
-
     public CategoryServiceImpl(CategoryRepository categoryRepository){
         this.categoryRepository=categoryRepository;
     }
-
-    private long nextId=1L;
 
     @Override
     public List<Category> getAllCategories(){
@@ -60,8 +55,5 @@ public class CategoryServiceImpl implements CategoryService {
         category1.setCategoryName(category.getCategoryName());
             return categoryRepository.save(category1);
         }
-
-
-
 
 }
