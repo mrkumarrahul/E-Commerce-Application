@@ -1,7 +1,6 @@
 package com.ecommerce.project.repository;
 
 import com.ecommerce.project.model.Category;
-import com.ecommerce.project.payload.CategoryDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
