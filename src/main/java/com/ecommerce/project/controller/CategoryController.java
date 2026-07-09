@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CategoryController {
 
+    @GetMapping("/get")
+    public ResponseEntity<String> echoMessage(@RequestParam(name = "message") String message){
+        return new ResponseEntity<>("Echoed message: "+message,HttpStatus.OK);
+    }
 
     public CategoryController(CategoryServiceImpl categoryService) {
         this.categoryService = categoryService;
@@ -20,8 +24,9 @@ public class CategoryController {
     private CategoryServiceImpl categoryService;
 
     @GetMapping("api/public/categories")
-    public ResponseEntity<CategoryResponse> getAllcategories(){
-        CategoryResponse categoryResponse= categoryService.getAllCategories();
+    public ResponseEntity<CategoryResponse> getAllcategories(@RequestParam(name="pageNumber") Integer pageNumber
+    ,@RequestParam(name="pageSize") Integer pageSize){
+        CategoryResponse categoryResponse= categoryService.getAllCategories(pageNumber,pageSize);
         return new ResponseEntity<>(categoryResponse,HttpStatus.OK);
     }
 

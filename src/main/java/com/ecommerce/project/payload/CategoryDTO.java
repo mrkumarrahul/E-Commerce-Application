@@ -33,7 +33,6 @@ public class CategoryDTO {
     }
 
     public CategoryDTO(){
-
     }
 
     @Size(min = 5,message = "Category must contain be at least 5 character")
