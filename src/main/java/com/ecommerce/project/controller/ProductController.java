@@ -1,0 +1,26 @@
+package com.ecommerce.project.controller;
+
+import com.ecommerce.project.model.Product;
+import com.ecommerce.project.payload.ProductDto;
+import com.ecommerce.project.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
+
+@RestController
+@RequestMapping("api")
+public class ProductController {
+
+    @Autowired
+    ProductService productService;
+
+    @PostMapping("/admin/categories/{categoryId}/product")
+    public ResponseEntity<ProductDto> addProduct(@RequestBody Product product,@PathVariable Long categoryId){
+         ProductDto productDto= productService.addProduct(categoryId,product);
+         return new ResponseEntity<>(productDto, CREATED);
+    }
+
+}
