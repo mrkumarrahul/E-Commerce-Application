@@ -48,4 +48,10 @@ public class ProductController {
         return new ResponseEntity<>(productDto,HttpStatus.ACCEPTED);
     }
 
+    @DeleteMapping("/public/product/{productId}")
+    public ResponseEntity<ProductDto> deleteproduct(@PathVariable Long productId){
+        ProductDto deletedProduct=productService.deleteProduct(productId);
+        return new ResponseEntity<>(deletedProduct,HttpStatus.OK);
+    }
+
 }
