@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Product {
@@ -14,8 +16,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
+    @NotBlank
+    @Size(min=3,message = "Product name must contain atleast 3 characters")
     private String productName;
 
+    @NotBlank
+    @Size(min=3,message = "Product Description must contain atleast 3 characters")
     private String description;
 
     private Integer quantity;

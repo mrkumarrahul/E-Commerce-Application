@@ -1,5 +1,6 @@
 package com.ecommerce.project.service;
 
+import com.ecommerce.project.APIException;
 import com.ecommerce.project.exceptions.ResourceNotFoundException;
 import com.ecommerce.project.model.Category;
 import com.ecommerce.project.model.Product;
@@ -46,15 +47,32 @@ public class ProductServiceImpl implements ProductService{
         Category category= categoryRepository.findById(categoryId)
                 .orElseThrow(()-> new ResourceNotFoundException("Category","CategoryId",categoryId));
 
-        Product product=modelMapper.map(productDto,Product.class);
+        boolean isProductNotPresent=true;
 
-        product.setCategory(category);
-        double specialPrice=product.getPrice()-(product.getPrice()*(product.getDiscount()*0.01));
-        product.setImage("default.png");
-        product.setSpecialPrice(specialPrice);
-        product.setQuantity(product.getQuantity());
-        Product savedProduct= productRepository.save(product);
-        return modelMapper.map(savedProduct,ProductDto.class);
+        List<Product> products=category.getProducts();
+
+        for(int i=0;i<products.size();i++){
+            if(products.get(i).getProductName().equals(productDto.getProductName())){
+                isProductNotPresent=false;
+                break;
+            }
+        }
+
+        if(isProductNotPresent) {
+
+            Product product = modelMapper.map(productDto, Product.class);
+
+            product.setCategory(category);
+            double specialPrice = product.getPrice() - (product.getPrice() * (product.getDiscount() * 0.01));
+            product.setImage("default.png");
+            product.setSpecialPrice(specialPrice);
+            product.setQuantity(product.getQuantity());
+            Product savedProduct = productRepository.save(product);
+            return modelMapper.map(savedProduct, ProductDto.class);
+        }
+        else {
+            throw new APIException("Product already exist!!");
+        }
     }
 
     @Override
@@ -63,6 +81,11 @@ public class ProductServiceImpl implements ProductService{
         List<ProductDto> productDtos= products.stream()
                 .map(product -> modelMapper.map(product,ProductDto.class))
                 .toList();
+
+        if(products.isEmpty()){
+            throw new APIException("no products exists");
+        }
+
         ProductResponse productResponse=new ProductResponse();
         productResponse.setContent(productDtos);
         return productResponse;
