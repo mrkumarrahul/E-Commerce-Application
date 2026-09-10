@@ -1,6 +1,5 @@
 package com.ecommerce.project.service;
 
-import com.ecommerce.project.model.Product;
 import com.ecommerce.project.payload.ProductDto;
 import com.ecommerce.project.payload.ProductResponse;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,9 +11,9 @@ public interface ProductService {
 
     ProductResponse getAllProducts(Integer pageNumber,Integer pageSize,String sortBy,String sortOrder);
 
-    ProductResponse getProductByCategory(Long categoryId);
+    ProductResponse getProductByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
-    ProductResponse getProductByKeyword(String keyword);
+    ProductResponse getProductByKeyword(String keyword,Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
     ProductDto updateProduct(Long productId, ProductDto productDto);
 
