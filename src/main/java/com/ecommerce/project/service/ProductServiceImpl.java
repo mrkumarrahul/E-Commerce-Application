@@ -114,6 +114,10 @@ public class ProductServiceImpl implements ProductService{
         Page<Product> categoryPage=productRepository.findByCategoryOrderByPriceAsc(category,pageDetails);
         List<Product> products=categoryPage.getContent();
 
+        if(products.isEmpty()){
+            throw new APIException(category.getCategoryName()+" does not have any products:");
+        }
+
         List<ProductDto> productDtos = products.stream()
                 .map(product -> modelMapper.map(product,ProductDto.class))
                 .toList();
@@ -138,6 +142,11 @@ public class ProductServiceImpl implements ProductService{
         List<ProductDto> productDtos=products.stream()
                 .map(product -> modelMapper.map(product,ProductDto.class))
                 .toList();
+
+        if(products.isEmpty()){
+            throw new APIException("Products not found with keyword :"+keyword);
+        }
+
         ProductResponse productResponse=new ProductResponse();
         productResponse.setContent(productDtos);
         productResponse.setContent(productDtos);
